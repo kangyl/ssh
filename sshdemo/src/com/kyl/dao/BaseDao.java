@@ -7,56 +7,88 @@ import java.util.List;
 
 import com.kyl.exception.DaoException;
 
-public abstract interface BaseDao<T> extends Serializable
+public class BaseDao extends HibernateSupport
+  implements IBaseDao
 {
-  public abstract List<T> findChsEntities(Class<T> paramClass)
-    throws DaoException;
+  public List findChsEntities(Class entity)
+    throws DaoException
+  {
+    return super.findEntities("from " + entity.getName());
+  }
 
-  public abstract T findChsEntityById(Class<T> paramClass, Serializable paramSerializable)
-    throws DaoException;
+  public Object findChsEntityById(Class entity, Serializable id) throws DaoException
+  {
+    return super.findEntityById(entity, id);
+  }
 
-  public abstract Object findChsObjectById(Class paramClass, Serializable paramSerializable)
-    throws DaoException;
+  public void deleteChsEntity(Object entity) throws DaoException {
+    super.deleteEntity(entity);
+  }
 
-  public abstract Serializable saveChsEntity(Object paramObject)
-    throws DaoException;
+  public void deleteChsEntities(Collection entities) throws DaoException {
+    super.deleteEntities(entities);
+  }
 
-  public abstract void saveOrUpdateChsEntity(Object paramObject)
-    throws DaoException;
+  public Serializable saveChsEntity(Object entity) throws DaoException {
+    return super.saveEntity(entity);
+  }
 
-  public abstract void updateChsEntity(Object paramObject)
-    throws DaoException;
+  public void saveOrUpdateChsEntity(Object entity) throws DaoException {
+    super.saveOrUpdateEntity(entity);
+  }
 
-  public abstract void deleteChsEntity(Object paramObject)
-    throws DaoException;
+  public void updateChsEntity(Object entity) throws DaoException {
+    super.updateEntity(entity);
+  }
 
-  public abstract void deleteChsEntities(Collection paramCollection)
-    throws DaoException;
+  public List findChsEntities(String hql, Object[] params) throws DaoException
+  {
+    return super.findEntities(hql, params);
+  }
 
-  public abstract T findFirstChsEntity(String paramString, Object[] paramArrayOfObject)
-    throws DaoException;
+  public List<?> findChsListForPage(String hql, int offset, int length, Object[] params) throws DaoException
+  {
+    return super.findListForPage(hql, offset, length, params);
+  }
 
-  public abstract Object findFirstChsObject(String paramString, Object[] paramArrayOfObject)
-    throws DaoException;
+  public int executeChsCountQuery(String hql, Object[] params) throws DaoException
+  {
+    hql = "select count(*) " + hql;
+    return super.executeCountQuery(hql, params);
+  }
 
-  public abstract List findChsEntities(String paramString, Object[] paramArrayOfObject)
-    throws DaoException;
+  public int executeCustomChsCountQuery(String hql, Object[] params) throws DaoException
+  {
+    return super.executeCountQuery(hql, params);
+  }
 
-  public abstract List findChsListForPage(String paramString, int paramInt1, int paramInt2, Object[] paramArrayOfObject)
-    throws DaoException;
+  public List executeChsQueryBySql(String sql, Object[] params) throws DaoException
+  {
+    return super.executeQueryBySql(sql, params);
+  }
 
-  public abstract int executeChsCountQuery(String paramString, Object[] paramArrayOfObject)
-    throws DaoException;
+  public void executeChsUpdate(String hql, Object[] params) throws DaoException
+  {
+    super.executeUpdate(hql, params);
+  }
 
-  public abstract int executeCustomChsCountQuery(String paramString, Object[] paramArrayOfObject)
-    throws DaoException;
+  public Object findFirstChsEntity(String hql, Object[] params) throws DaoException
+  {
+    return super.findFirstEntity(hql, params);
+  }
 
-  public abstract void executeChsUpdate(String paramString, Object[] paramArrayOfObject)
-    throws DaoException;
+  public void executeChsUpdateBySql(String sql, Object[] params) throws DaoException
+  {
+    super.executeUpdateBySql(sql, params);
+  }
 
-  public abstract void executeChsUpdateBySql(String paramString, Object[] paramArrayOfObject)
-    throws DaoException;
+  public Object findChsObjectById(Class entity, Serializable id) throws DaoException
+  {
+    return super.findEntityById(entity, id);
+  }
 
-  public abstract List executeChsQueryBySql(String paramString, Object[] paramArrayOfObject)
-    throws DaoException;
+  public Object findFirstChsObject(String hql, Object[] params) throws DaoException
+  {
+    return super.findFirstObject(hql, params);
+  }
 }

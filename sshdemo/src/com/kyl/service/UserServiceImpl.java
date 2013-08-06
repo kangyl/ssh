@@ -4,13 +4,13 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.kyl.dao.BaseDao;
+import com.kyl.dao.IBaseDao;
 import com.kyl.domain.User;
 @Service
 public class UserServiceImpl implements UserService{
 
 	@Resource
-	private BaseDao<User> baseDao;
+	private IBaseDao<User> baseDao;
 	
 	public void save(User user) {
 		try {
